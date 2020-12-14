@@ -1,0 +1,13 @@
+{
+  "name": "bahasaai/klasifikasi-php",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "zesagata",
+      "email": "saga@bahasa.ai"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {}
+}
