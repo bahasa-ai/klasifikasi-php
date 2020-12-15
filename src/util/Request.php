@@ -23,20 +23,15 @@ class Request {
 
   public function request(string $method, string $path, array $headers, array $queryParams, array $requestBody): array {
 
-    $_queryParams = array();
-    foreach ($queryParams as $key => $value) {
-      array_push($_queryParams, "{$key}={$value}");
-    }
-    if (count($_queryParams) > 0) {
-      $mergeString = implode("&", $_queryParams);
-      $path = "{$path}/?{$mergeString}";
-    }
+    $queryString = http_build_query($queryParams);
+    $path = "{$path}/?{$queryString}";
 
     return $this->doRequest($method, $path, $headers, $requestBody);
   }
 
   private function doRequest(string $method, string $fullUrl, array $headers, array $requestBody): array
   {
+    var_dump($fullUrl);
 
     try {
       $options = [ 'headers' => $headers ];
