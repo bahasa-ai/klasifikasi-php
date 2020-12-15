@@ -11,7 +11,7 @@ use klasifikasi\Klasifikasi;
 
 class Request {
 
-  protected ?Client $http = null;
+  protected $http = null;
 
   public function __construct() {
     $baseUri = strval(Klasifikasi::getBaseUrl());
@@ -29,9 +29,7 @@ class Request {
     return $this->doRequest($method, $path, $headers, $requestBody);
   }
 
-  private function doRequest(string $method, string $fullUrl, array $headers, array $requestBody): array
-  {
-    var_dump($fullUrl);
+  private function doRequest(string $method, string $fullUrl, array $headers, array $requestBody): array {
 
     try {
       $options = [ 'headers' => $headers ];

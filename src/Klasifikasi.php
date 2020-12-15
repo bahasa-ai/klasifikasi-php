@@ -7,17 +7,17 @@ use klasifikasi\util\Request;
 
 class Klasifikasi {
 
-  private static ?string $baseUrl = 'https://api.klasifikasi.com';
+  private static $baseUrl = 'https://api.klasifikasi.com';
 
-  private static ?Klasifikasi $instance = null;
+  private static $instance = null;
 
-  private ?Request $clientRequest;
+  private $clientRequest;
 
-  private array $modelMapping;
+  private $modelMapping;
 
   public static function build(array $buildParams): Klasifikasi {
     if (static::$instance === null) {
-      static::$instance = new self($buildParams);
+      static::$instance = new Klasifikasi($buildParams);
     }
     return static::$instance;
   }
