@@ -6,19 +6,19 @@ namespace klasifikasi;
 
 class KlasifikasiModel {
 
-  private string $_clientId;
+  private $_clientId;
 
-  private string $_clientSecret;
+  private $_clientSecret;
 
-  private string $_token;
+  private $_token;
 
-  private int $_expiredAfter;
+  private $_expiredAfter;
 
-  private string $name;
+  private $name;
 
-  private string $publicId;
+  private $publicId;
 
-  private array  $tags;
+  private  $tags;
 
   public function __construct(string $_clientId, string $_clientSecret, string $_token, int $_expiredAfter, string $name, string $publicId, array $tags) {
     $this->_clientId = $_clientId;
