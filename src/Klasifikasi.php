@@ -13,9 +13,11 @@ class Klasifikasi {
 
   private ?Request $clientRequest;
 
+  private array $modelMapping;
+
   public static function build(array $buildParams): Klasifikasi {
     if (static::$instance === null) {
-      static::$instance = new static($buildParams);
+      static::$instance = new self($buildParams);
     }
     return static::$instance;
   }
@@ -24,7 +26,13 @@ class Klasifikasi {
 
     $this->clientRequest = new Request();
 
+    $this->modelMapping = array();
+
     foreach ($buildParams as $clientData) {
+
+      if (!array_key_exists('clientId', $clientData) || !array_key_exists('clientSecret', $clientData)) {
+        throw new \Exception('clientId & clientSecret is required !');
+      }
 
       $clientId = $clientData['clientId'];
       $clientSecret = $clientData['clientSecret'];
@@ -33,18 +41,32 @@ class Klasifikasi {
           'clientId' => $clientId,
           'clientSecret' => $clientSecret
       ]);
-
       if ($responseCode != 200) {
         throw new \Exception($responseBody['error']);
       }
+      $token = $responseBody['auth']['token'];
+      $expiredAfter = $responseBody['auth']['expiredAfter'];
+
 
       [$responseBody, $responseCode] = $this->clientRequest->request('get', '/api/v1/auth/activeClient', [
           'Authorization' => "Bearer {$responseBody['auth']['token']}"
       ], [], []);
+      if ($responseCode != 200) {
+        throw new \Exception($responseBody['error']);
+      } else if (!array_key_exists('model', $responseBody)) {
+        throw new \Exception("ClientId & ClientSecret didnt have any model !");
+      }
 
+      $model = $responseBody['model'];
 
+      $this->modelMapping[$model['publicId']] = new KlasifikasiModel($clientId, $clientSecret,
+          $token, $expiredAfter, $model['name'],$model['publicId'], $model['tags']);
 
     }
+  }
+
+  public function getModels(): array {
+    return $this->modelMapping;
   }
 
   public static function getBaseUrl(): ?string

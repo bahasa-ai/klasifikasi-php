@@ -11,7 +11,6 @@ use klasifikasi\Klasifikasi;
 
 class Request {
 
-
   protected ?Client $http = null;
 
   public function __construct() {
