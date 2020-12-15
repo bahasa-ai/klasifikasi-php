@@ -3,59 +3,65 @@
 
 namespace klasifikasi;
 
+class KlasifikasiModel
+{
+    private $_clientId;
 
-class KlasifikasiModel {
+    private $_clientSecret;
 
-  private $_clientId;
+    private $_token;
 
-  private $_clientSecret;
+    private $_expiredAfter;
 
-  private $_token;
+    private $name;
 
-  private $_expiredAfter;
+    private $publicId;
 
-  private $name;
+    private $tags;
 
-  private $publicId;
+    public function __construct(string $_clientId, string $_clientSecret, string $_token, int $_expiredAfter, string $name, string $publicId, array $tags)
+    {
+        $this->_clientId = $_clientId;
+        $this->_clientSecret = $_clientSecret;
+        $this->_token = $_token;
+        $this->_expiredAfter = $_expiredAfter;
+        $this->name = $name;
+        $this->publicId = $publicId;
+        $this->tags = $tags;
+    }
 
-  private  $tags;
+    public function getClientId(): string
+    {
+        return $this->_clientId;
+    }
 
-  public function __construct(string $_clientId, string $_clientSecret, string $_token, int $_expiredAfter, string $name, string $publicId, array $tags) {
-    $this->_clientId = $_clientId;
-    $this->_clientSecret = $_clientSecret;
-    $this->_token = $_token;
-    $this->_expiredAfter = $_expiredAfter;
-    $this->name = $name;
-    $this->publicId = $publicId;
-    $this->tags = $tags;
-  }
+    public function getClientSecret(): string
+    {
+        return $this->_clientSecret;
+    }
 
-  public function getClientId(): string {
-    return $this->_clientId;
-  }
+    public function getToken(): string
+    {
+        return $this->_token;
+    }
 
-  public function getClientSecret(): string {
-    return $this->_clientSecret;
-  }
+    public function getExpiredAfter(): int
+    {
+        return $this->_expiredAfter;
+    }
 
-  public function getToken(): string {
-    return $this->_token;
-  }
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-  public function getExpiredAfter(): int {
-    return $this->_expiredAfter;
-  }
+    public function getPublicId(): string
+    {
+        return $this->publicId;
+    }
 
-  public function getName(): string {
-    return $this->name;
-  }
-
-  public function getPublicId(): string {
-    return $this->publicId;
-  }
-
-  public function getTags(): array {
-    return $this->tags;
-  }
-
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
 }
