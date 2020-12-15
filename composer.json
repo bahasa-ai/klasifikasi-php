@@ -8,6 +8,13 @@
       "email": "saga@bahasa.ai"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "klasifikasi\\": "src/"
+    }
+  },
   "minimum-stability": "stable",
-  "require": {}
+  "require": {
+    "guzzlehttp/guzzle": "^7.2"
+  }
 }
