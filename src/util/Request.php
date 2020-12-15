@@ -47,6 +47,10 @@ class Request
             $body = json_decode($response->getBody()->getContents(), true);
             $code = $response->getStatusCode();
             return [$body, $code];
+        } catch (\Exception $e) {
+            $body = $e->getMessage();
+            $code = 500;
+            return [$body, $code];
         }
 
         $body = json_decode($response->getBody()->getContents(), true);
