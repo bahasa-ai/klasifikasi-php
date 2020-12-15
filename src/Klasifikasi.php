@@ -69,6 +69,27 @@ class Klasifikasi {
     return $this->modelMapping;
   }
 
+  public function classify(string $publicId, string $query): array {
+    if (!array_key_exists($publicId, $this->modelMapping)) {
+      throw new \Exception("Model not found !");
+    }
+    $model = $this->modelMapping[$publicId];
+
+    $requestBody = [ "query" => $query ];
+    $headers = [ "Authorization" => "Bearer {$model->getToken()}" ];
+    $path = "/api/v1/classify/{$publicId}";
+    [$responseBody, $responseCode] = $this->clientRequest->request(
+        'post', $path, $headers, [], $requestBody
+    );
+
+    if ($responseCode != 200) {
+      throw new \Exception($responseBody['error']);
+    }
+
+    return $responseBody;
+
+  }
+
   public static function getBaseUrl(): ?string
   {
     return self::$baseUrl;
